@@ -6,3 +6,4 @@ docker kill <contain_id>
 docker images
 docker commit <con_id> <imageName>
 docker build -t myapp/<dir>
+ 
