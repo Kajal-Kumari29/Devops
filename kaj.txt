@@ -1,2 +1,25 @@
 kajal kumari sinha
 see 
+mkdir MyDockerHTMLApp
+cd MyDockerHTMLApp
+
+
+<!DOCTYPE html>
+<html><head>
+    <title>Hello Docker</title></head>
+<body>
+    <h1>Hello, Docker from HTML!</h1>
+    <p>This is a simple containerized HTML application.</p>
+</body></html>
+
+
+FROM nginx:alpine
+COPY ./index.html /usr/share/nginx/html/
+EXPOSE 80
+
+
+docker build -t mydockerhtmlapp .
+
+docker run -d -p 8081:80 mydockerhtmlapp
+
+http://localhost:8081
