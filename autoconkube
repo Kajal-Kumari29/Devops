@@ -1,0 +1,84 @@
+docker build -t kajal796/myapp:latest
+docker push kajal796/myapp:latest
+
+deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-application
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+containers:
+      - name: my-container
+image: vineelacse/myapp:v1.0
+        ports:
+        - containerPort: 80
+
+service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30001
+
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+get pods
+get services
+localhost 3000
+
+kubectl scale deployment myapp --replica=3
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-web-app
+  template:
+    metadata:
+      labels:
+        app: simple-web-app
+    spec:
+      containers:
+      - name: simple-web-app
+        image: hasini24/simple-web-app  # Replace with your actual image path
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-web-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: simple-web-app
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+    nodePort: 30001
