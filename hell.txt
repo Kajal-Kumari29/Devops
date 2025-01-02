@@ -1,4 +1,4 @@
-in kub doc
+in kub doc 
 kubectl version --client
 docker --version
 
